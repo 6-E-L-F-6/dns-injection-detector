@@ -261,7 +261,7 @@ class DNSInjectionApp(App):
         for dns_name, dns_ip in selected_dns.items():
             ip, response_time = await detector.resolve(domain, dns_ip)
             ip_addr = ip.split()[0] if ip and not ip.startswith("#") else ip
-            is_suspicious, suspicion_level = detector.is_suspicious_ip(ip_addr) if not ip.startswith("⛔") else (False, "Error")
+            is_suspicious, suspicion_level = detector.is_suspicious_ip(ip_addr) if not ip.startswith("#") else (False, "Error")
             scope = detector.ip_scope(ip_addr) if not ip.startswith("#") else "Unknown"
             result = DNSResult(dns_name, ip_addr, is_suspicious, scope, response_time, suspicion_level)
             self.add_dns_result(domain, result)
